@@ -5,11 +5,12 @@
  * @format
  */
 
-import {NavigationContainer, useNavigation} from '@react-navigation/native';
+import {useNavigation} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
 import {View, Text, Button} from 'react-native';
 import SignInScreen from '../../screens/SignInScreen';
+import {Routes} from '../../routes/routes';
 
 function IntroScreen() {
   const navigation = useNavigation();
@@ -27,7 +28,7 @@ function IntroScreen() {
       <Button
         title="Sign In"
         onPress={() => {
-          navigation.navigate('SignIn');
+          navigation.navigate(Routes.SIGNIN);
         }}
       />
     </View>
@@ -47,12 +48,7 @@ function CreateAccountScreen() {
         }}>
         CreateAccount!
       </Text>
-      <Button
-        title="SignIn"
-        onPress={() => {
-          navigation.navigate('SignIn');
-        }}
-      />
+
       <Button
         title="HomeWelcome"
         onPress={() => {

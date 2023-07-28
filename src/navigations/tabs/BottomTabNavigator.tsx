@@ -1,9 +1,9 @@
-import * as React from 'react';
+import React from 'react';
 import {createBottomTabNavigator} from '@react-navigation/bottom-tabs';
 import DashboardNavigator from './DashboardNavigator';
 import ProfileNavigator from './ProfileNavigator';
 import SettingsNavigator from './SettingsNavigator';
-import Icons from 'react-native-vector-icons/Ionicons';
+import Icon from 'react-native-vector-icons/Ionicons';
 
 const Tab = createBottomTabNavigator();
 
@@ -11,38 +11,64 @@ const BottomTabNavigator = () => {
   return (
     <Tab.Navigator
       initialRouteName="Dashboard"
-      screenOptions={({route}) => ({
-        tabBarIcon: ({focused, color, size}) => {
-          let iconName;
-          if (route.name === 'Dashboard') {
-            iconName = focused ? 'home' : 'home-outline';
-          } else if (route.name === 'Settings') {
-            iconName = focused ? 'settings' : 'settings-outline';
-          } else if (route.name === 'Profile') {
-            iconName = focused ? 'person' : 'person-outline';
-          }
-          return <Icons name={iconName} size={size} color={color} />;
+      screenOptions={{
+        tabBarActiveTintColor: 'gray',
+        tabBarInactiveBackgroundColor: '#91C8E4',
+        tabBarActiveBackgroundColor: '#001C30',
+        tabBarInactiveTintColor: '#001C30',
+        tabBarShowLabel: true,
+        tabBarLabelStyle: {
+          fontSize: 12,
+          fontWeight: 'bold',
+          marginBottom: 5,
         },
         headerShown: false,
-      })}
-      tabBarOptions={{
-        activeTintColor: '#91C8E4',
-        inactiveTintColor: 'gray',
-        activeBackgroundColor: '#20315f',
-        inactiveBackgroundColor: '#001C30',
-        style: {
-          paddingBottom: 10,
-          paddingTop: 10,
-          height: 70,
+
+        tabBarStyle: {
+          borderTopWidth: 0,
+          backgroundColor: '#91C8E4',
+          elevation: 0,
+          shadowOpacity: 0,
+          height: 55,
         },
-        labelStyle: {
-          fontSize: 12,
-          fontFamily: 'Poppins-Regular',
+        tabBarIconStyle: {
+          marginTop: 5,
         },
+        tabBarHideOnKeyboard: true,
       }}>
-      <Tab.Screen name="Dashboard" component={DashboardNavigator} />
-      <Tab.Screen name="Profile" component={ProfileNavigator} />
-      <Tab.Screen name="Settings" component={SettingsNavigator} />
+      <Tab.Screen
+        name="Dashboard"
+        component={DashboardNavigator}
+        options={{
+          tabBarIcon: ({focused, color, size}) => {
+            let iconName = focused ? 'home' : 'home-outline';
+            return <Icon name={iconName} size={size} color={color} />;
+          },
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen
+        name="Profile"
+        component={ProfileNavigator}
+        options={{
+          tabBarIcon: ({focused, color, size}) => {
+            let iconName = focused ? 'person' : 'person-outline';
+            return <Icon name={iconName} size={size} color={color} />;
+          },
+          headerShown: false,
+        }}
+      />
+      <Tab.Screen
+        name="Settings"
+        component={SettingsNavigator}
+        options={{
+          tabBarIcon: ({focused, color, size}) => {
+            let iconName = focused ? 'settings' : 'settings-outline';
+            return <Icon name={iconName} size={size} color={color} />;
+          },
+          headerShown: false,
+        }}
+      />
     </Tab.Navigator>
   );
 };

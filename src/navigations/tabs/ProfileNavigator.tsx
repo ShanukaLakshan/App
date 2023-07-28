@@ -47,11 +47,11 @@ const Stack = createStackNavigator();
 const ProfileNavigator = () => {
   return (
     <Stack.Navigator
-      initialRouteName={'Profile'}
+      initialRouteName={'MyProfile'}
       screenOptions={{
         headerShown: false,
       }}>
-      <Stack.Screen name="Profile" component={ProfileScreen} />
+      <Stack.Screen name="MyProfile" component={ProfileScreen} />
       <Stack.Screen name="EditProfile" component={EditProfileScreen} />
     </Stack.Navigator>
   );

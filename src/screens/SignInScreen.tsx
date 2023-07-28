@@ -1,43 +1,48 @@
+import React, {useState} from 'react';
 import {View, Text, Button, TextInput, StyleSheet} from 'react-native';
-import React, {useState, useEffect} from 'react';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
 import {login} from '../actions/auth';
 import {navigationRef} from '../navigations/RootNavigator';
 
+type User = {
+  username: string;
+  password: string;
+};
+
 const SignInScreen = () => {
   const navigation = useNavigation();
-  const [username, setUsername] = React.useState('');
-  const [password, setPassword] = React.useState('');
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
 
   const dispatch = useDispatch();
   const onLogin = () => {
-    let user = {
+    let user: User = {
       username: username,
       password: password,
     };
     dispatch(login(user))
       .then((response: {status: string}) => {
-        if (response.status == 'success') {
+        if (response.status === 'success') {
           navigationRef.current?.navigate('AuthenticatedStack');
         }
       })
-      .catch(error => {
-        navigation.navigate('SignIn');
+      .catch(() => {
+        navigationRef.current?.navigate('AuthStack');
       });
   };
 
   return (
-    <View style={Styles.container}>
-      <Text style={Styles.headerTitle}>Please Login to your account</Text>
+    <View style={styles.container}>
+      <Text style={styles.headerTitle}>Please Login to your account</Text>
       <TextInput
-        style={Styles.input}
+        style={styles.input}
         value={username}
         onChangeText={text => setUsername(text)}
         placeholder="username"
       />
       <TextInput
-        style={Styles.input}
+        style={styles.input}
         value={password}
         onChangeText={text => setPassword(text)}
         secureTextEntry={true}
@@ -56,7 +61,8 @@ const SignInScreen = () => {
 };
 
 export default SignInScreen;
-const Styles = StyleSheet.create({
+
+const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',

@@ -22,11 +22,11 @@ const Stack = createStackNavigator();
 const DashboardNavigator = () => {
   return (
     <Stack.Navigator
-      initialRouteName={'Dashboard'}
+      initialRouteName={'MainDashboard'}
       screenOptions={{
         headerShown: false,
       }}>
-      <Stack.Screen name="Dashboard" component={DashboardScreen} />
+      <Stack.Screen name="MainDashboard" component={DashboardScreen} />
     </Stack.Navigator>
   );
 };

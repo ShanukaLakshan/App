@@ -1,21 +1,19 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
-
 import {NavigationContainer} from '@react-navigation/native';
-
 import {navigationRef} from './RootNavigator';
-
 import AuthNavigator from './stacks/AuthNavigator';
 import AuthenticatedNavigator from './stacks/AuthenticatedNavigator';
 import SplashScreen from './SplashScreen';
+import {Routes} from '../routes/routes';
 
 const RootStack = createStackNavigator();
 
-const getUnAuthStack = () => {
+const GetUnAuthStack = () => {
   return <AuthNavigator />;
 };
 
-const getAuthenticatedStack = () => {
+const GetAuthenticatedStack = () => {
   return <AuthenticatedNavigator />;
 };
 
@@ -23,17 +21,17 @@ const AppNavigator = () => {
   return (
     <NavigationContainer ref={navigationRef}>
       <RootStack.Navigator
-        initialRouteName="Splash"
+        initialRouteName={Routes.SPLASH}
         screenOptions={{
           headerShown: false,
           gestureEnabled: true,
         }}>
-        <RootStack.Screen name="AuthStack" component={getUnAuthStack} />
+        <RootStack.Screen name={Routes.AUTHSTACK} component={GetUnAuthStack} />
         <RootStack.Screen
-          name="AuthenticatedStack"
-          component={getAuthenticatedStack}
+          name={Routes.AUTHENTICATEDSTACK}
+          component={GetAuthenticatedStack}
         />
-        <RootStack.Screen name="Splash" component={SplashScreen} />
+        <RootStack.Screen name={Routes.SPLASH} component={SplashScreen} />
       </RootStack.Navigator>
     </NavigationContainer>
   );

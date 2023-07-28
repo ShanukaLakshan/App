@@ -9,10 +9,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 const SplashScreen = () => {
   const [isLoading, setIsLoading] = useState(true);
 
-  // get token from async storage
   const getToken = async () => {
     const token = await AsyncStorage.getItem('token');
-    console.log('token', token);
 
     if (token) {
       navigationRef.current?.navigate('AuthenticatedStack');

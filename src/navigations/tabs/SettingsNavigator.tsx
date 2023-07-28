@@ -18,7 +18,7 @@ function SettingsScreen() {
         }
       })
       .catch(error => {
-        navigation.navigate('Settings');
+        navigation.navigate('SettingsScreen');
       });
   };
 
@@ -63,11 +63,11 @@ const Stack = createStackNavigator();
 const SettingsNavigator = () => {
   return (
     <Stack.Navigator
-      initialRouteName={'Settings'}
+      initialRouteName={'SettingsScreen'}
       screenOptions={{
         headerShown: false,
       }}>
-      <Stack.Screen name="Settings" component={SettingsScreen} />
+      <Stack.Screen name="SettingsScreen" component={SettingsScreen} />
       <Stack.Screen name="LogOut" component={LogOutScreen} />
     </Stack.Navigator>
   );
