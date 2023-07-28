@@ -3,6 +3,7 @@ import React from 'react';
 import Icons from 'react-native-vector-icons/Ionicons';
 
 import {useEffect, useState} from 'react';
+import {navigationRef} from './RootNavigator';
 
 const SplashScreen = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -10,8 +11,8 @@ const SplashScreen = () => {
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
-    }, 2000);
-  }, []);
+    }, 500);
+  }, [navigationRef.current?.navigate('AuthStack')]);
 
   return (
     <View

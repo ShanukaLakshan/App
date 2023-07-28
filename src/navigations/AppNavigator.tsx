@@ -22,7 +22,12 @@ const getAuthenticatedStack = () => {
 const AppNavigator = () => {
   return (
     <NavigationContainer ref={navigationRef}>
-      <RootStack.Navigator initialRouteName={'AuthStack'}>
+      <RootStack.Navigator
+        initialRouteName="Splash"
+        screenOptions={{
+          headerShown: false,
+          gestureEnabled: true,
+        }}>
         <RootStack.Screen name="AuthStack" component={getUnAuthStack} />
         <RootStack.Screen
           name="AuthenticatedStack"

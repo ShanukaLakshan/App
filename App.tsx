@@ -14,12 +14,17 @@ import {
   View,
 } from 'react-native';
 import AppNavigator from './src/navigations/AppNavigator';
+import {SafeAreaProvider} from 'react-native-safe-area-context';
+import {Provider as StoreProvider} from 'react-redux';
+import store from './src/store';
 
 function App(): JSX.Element {
   return (
-    <SafeAreaView style={{flex: 1}}>
-      <AppNavigator />
-    </SafeAreaView>
+    <StoreProvider store={store}>
+      <SafeAreaProvider style={{flex: 1}}>
+        <AppNavigator />
+      </SafeAreaProvider>
+    </StoreProvider>
   );
 }
 

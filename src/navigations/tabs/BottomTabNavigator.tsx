@@ -23,6 +23,7 @@ const BottomTabNavigator = () => {
           }
           return <Icons name={iconName} size={size} color={color} />;
         },
+        headerShown: false,
       })}
       tabBarOptions={{
         activeTintColor: '#91C8E4',
