@@ -2,9 +2,15 @@ import * as React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {View, Text, Button} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {getUser} from '../../actions/auth';
+import {useEffect} from 'react';
 
 function ProfileScreen() {
   const navigation = useNavigation();
+
+  useEffect(() => {
+    getUser();
+  }, []);
 
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -14,7 +20,7 @@ function ProfileScreen() {
           fontWeight: 'bold',
           color: '#20315f',
         }}>
-        Profile Screen
+        Email :
       </Text>
       <Button
         title="Edit Profile"
