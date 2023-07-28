@@ -4,15 +4,29 @@ import Icons from 'react-native-vector-icons/Ionicons';
 
 import {useEffect, useState} from 'react';
 import {navigationRef} from './RootNavigator';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const SplashScreen = () => {
   const [isLoading, setIsLoading] = useState(true);
+
+  // get token from async storage
+  const getToken = async () => {
+    const token = await AsyncStorage.getItem('token');
+    console.log('token', token);
+
+    if (token) {
+      navigationRef.current?.navigate('AuthenticatedStack');
+    } else {
+      navigationRef.current?.navigate('AuthStack');
+    }
+  };
 
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
     }, 500);
-  }, [navigationRef.current?.navigate('AuthStack')]);
+    getToken();
+  }, [getToken]);
 
   return (
     <View
