@@ -10,7 +10,15 @@ const App = () => {
         justifyContent: 'center',
         alignItems: 'center',
       }}>
-      <Text>App</Text>
+      <Text
+        style={{
+          fontFamily: 'Poppins-Black',
+          fontWeight: 'bold',
+          fontSize: 30,
+          color: '#20315f',
+        }}>
+        App
+      </Text>
       <Icons name="heart-outline" size={30} color="#900" />
     </View>
   );
