@@ -1,14 +1,15 @@
-import {LOGIN_SUCCESS, LOGOUT, GET_USER} from './type';
+import {LOGIN_SUCCESS, LOGOUT, GET_USER, REGISTER} from './type';
 
 import AuthService from '../services/authService';
 
-export const login = user => dispatch => {
-  return AuthService.logIn(user).then(
+export const loginDB = (username, password) => dispatch => {
+  return AuthService.logInDB(username, password).then(
     response => {
       if (response.status === 'success') {
+        console.log('In login function : ', response);
         dispatch({
           type: LOGIN_SUCCESS,
-          payload: {user: response.user},
+          payload: {user: response},
         });
         Promise.resolve();
         return response;
@@ -22,13 +23,14 @@ export const login = user => dispatch => {
   );
 };
 
-export const loginDB = (username, password) => dispatch => {
-  return AuthService.logInDB(username, password).then(
+export const register = (username, email, password) => dispatch => {
+  return AuthService.signUp(username, email, password).then(
     response => {
+      // console.log('In register function : ', response);
       if (response.status === 'success') {
         dispatch({
-          type: LOGIN_SUCCESS,
-          payload: {user: response.user},
+          type: REGISTER,
+          payload: {user: response},
         });
         Promise.resolve();
         return response;
@@ -43,13 +45,12 @@ export const loginDB = (username, password) => dispatch => {
 };
 
 export const getUser = () => dispatch => {
-  console.log('get user called');
   return AuthService.getUser().then(
     response => {
       if (response.status === 'success') {
         dispatch({
           type: GET_USER,
-          payload: {user: response.user},
+          payload: {response},
         });
         Promise.resolve();
         return response;

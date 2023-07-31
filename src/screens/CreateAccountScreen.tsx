@@ -1,19 +1,20 @@
+import {View, Text, TextInput, Button, StyleSheet} from 'react-native';
 import React, {useState} from 'react';
-import {View, Text, Button, TextInput, StyleSheet} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
 import {useDispatch} from 'react-redux';
-import {loginDB} from '../actions/auth';
 import {navigationRef} from '../navigations/RootNavigator';
+import {register} from '../actions/auth';
 
-const SignInScreen = () => {
+const CreateAccountScreen = () => {
   const navigation = useNavigation();
   const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
   const dispatch = useDispatch();
 
-  const onLogin = () => {
-    dispatch(loginDB(username, password))
+  const onSignUp = () => {
+    dispatch(register(username, email, password))
       .then((response: {status: string}) => {
         if (response.status === 'success') {
           navigationRef.current?.navigate('AuthenticatedStack');
@@ -23,11 +24,10 @@ const SignInScreen = () => {
         navigationRef.current?.navigate('AuthStack');
       });
   };
-
-
   return (
     <View style={styles.container}>
-      <Text style={styles.headerTitle}>Please Login to your account</Text>
+      <Text style={styles.headerTitle}>Please create your new account</Text>
+
       <TextInput
         style={styles.input}
         value={username}
@@ -36,24 +36,30 @@ const SignInScreen = () => {
       />
       <TextInput
         style={styles.input}
+        value={email}
+        onChangeText={text => setEmail(text)}
+        placeholder="email"
+      />
+      <TextInput
+        style={styles.input}
         value={password}
         onChangeText={text => setPassword(text)}
         secureTextEntry={true}
         placeholder="password"
       />
-      <Button onPress={() => onLogin()} title="Login" />
-      <Text>Don't have an account?</Text>
+      <Button onPress={() => onSignUp()} title="Sign Up" />
+      <Text>Do you have an account?</Text>
       <Button
-        title="Create Account"
+        title="Login"
         onPress={() => {
-          navigation.navigate('CreateAccount');
+          navigation.navigate('SignIn');
         }}
       />
     </View>
   );
 };
 
-export default SignInScreen;
+export default CreateAccountScreen;
 
 const styles = StyleSheet.create({
   container: {

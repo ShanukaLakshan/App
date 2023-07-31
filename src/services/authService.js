@@ -2,19 +2,6 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const BASE_URL = 'https://odd-red-tortoise-toga.cyclic.app/api/';
 
-const logIn = async user => {
-  console.log('user info', user);
-  const {username, password} = user;
-  if (username === 'A' && password === 'A') {
-    AsyncStorage.setItem('token', JSON.stringify(user));
-    return {
-      status: 'success',
-      message: 'You are redirecting to home page',
-      user: username,
-    };
-  }
-};
-
 const logInDB = async (username, password) => {
   const URL = `${BASE_URL}auth/login`;
   try {
@@ -28,12 +15,11 @@ const logInDB = async (username, password) => {
 
     const data = await response.json();
     if (response.ok) {
-      console.log('Login Success:', data);
       AsyncStorage.setItem('token', data.accessToken);
       return {
         status: 'success',
         message: 'You are redirecting to home page',
-        user: data.username,
+        user: data,
       };
     } else {
       console.log('Login Failed');
@@ -44,6 +30,45 @@ const logInDB = async (username, password) => {
     }
   } catch (error) {
     console.error('Fetch Error:', error);
+  }
+};
+
+const signUp = async (username, email, password) => {
+  const URL = `${BASE_URL}auth/register`;
+
+  try {
+    const response = await fetch(URL, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({username, email, password}),
+    });
+
+    const data = await response.json();
+    console.log('data', data);
+
+    if (response.ok) {
+      console.log('Register Success:', data);
+      AsyncStorage.setItem('token', data.accessToken);
+      return {
+        status: 'success',
+        message: 'You are being redirected to the home page',
+        user: data,
+      };
+    } else {
+      console.log('Register Failed');
+      return {
+        status: 'failed',
+        message: 'Register Failed',
+      };
+    }
+  } catch (error) {
+    console.error('Fetch Error:', error);
+    return {
+      status: 'error',
+      message: 'Something went wrong while processing your request',
+    };
   }
 };
 
@@ -61,11 +86,11 @@ const getUser = async () => {
 
     const data = await response.json();
     if (response.ok) {
-      console.log('Get User Success : ', data);
+      // console.log('Get User Success : ', data);
       return {
         status: 'success',
         message: 'You are redirecting to home page',
-        user: data.username,
+        data: data,
       };
     } else {
       console.log('Get User Failed');
@@ -91,8 +116,8 @@ const logOut = async () => {
   };
 };
 export default {
-  logIn,
   logOut,
   logInDB,
   getUser,
+  signUp,
 };

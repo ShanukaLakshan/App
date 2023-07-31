@@ -1,16 +1,14 @@
 /**
- * Sample React Native App
- * https://github.com/facebook/react-native
- *
  * @format
  */
 
 import {useNavigation} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import React from 'react';
-import {View, Text, Button} from 'react-native';
+import {View, Text, Button, TextInput} from 'react-native';
 import SignInScreen from '../../screens/SignInScreen';
 import {Routes} from '../../routes/routes';
+import CreateAccountScreen from '../../screens/CreateAccountScreen';
 
 function IntroScreen() {
   const navigation = useNavigation();
@@ -29,30 +27,6 @@ function IntroScreen() {
         title="Sign In"
         onPress={() => {
           navigation.navigate(Routes.SIGNIN);
-        }}
-      />
-    </View>
-  );
-}
-
-function CreateAccountScreen() {
-  const navigation = useNavigation();
-
-  return (
-    <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-      <Text
-        style={{
-          fontSize: 30,
-          fontWeight: 'bold',
-          color: '#20315f',
-        }}>
-        CreateAccount!
-      </Text>
-
-      <Button
-        title="HomeWelcome"
-        onPress={() => {
-          navigation.navigate('HomeWelcome');
         }}
       />
     </View>

@@ -2,15 +2,25 @@ import * as React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 import {View, Text, Button} from 'react-native';
 import {useNavigation} from '@react-navigation/native';
+import {useDispatch, useSelector} from 'react-redux';
+import {useState, useEffect} from 'react';
 import {getUser} from '../../actions/auth';
-import {useEffect} from 'react';
 
 function ProfileScreen() {
   const navigation = useNavigation();
+  const dispatch = useDispatch();
+  const [email, setEmail] = useState('');
+  const user = useSelector((state: {auth: {user: any}}) => state.auth.user);
 
   useEffect(() => {
-    getUser();
-  }, []);
+    try {
+      setEmail(user.response.data.email);
+    } catch (error) {
+      setEmail('Email not found');
+      console.log(error);
+    }
+    dispatch(getUser());
+  }, [user]);
 
   return (
     <View style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
@@ -19,8 +29,9 @@ function ProfileScreen() {
           fontSize: 30,
           fontWeight: 'bold',
           color: '#20315f',
+          marginBottom: 20,
         }}>
-        Email :
+        {email}
       </Text>
       <Button
         title="Edit Profile"
@@ -47,7 +58,6 @@ function EditProfileScreen() {
   );
 }
 
-// Screen imports
 const Stack = createStackNavigator();
 
 const ProfileNavigator = () => {
